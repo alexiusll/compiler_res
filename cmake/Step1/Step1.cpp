@@ -1,7 +1,6 @@
 /*
  * @Author: linkenzone
  * @Date: 2023-07-19 14:11:02
- * @Descripttion: Do not edit
  */
 
 // A simple program that computes the square root of a number
