@@ -1,0 +1,13 @@
+﻿/*
+ * @Author: linkenzone
+ * @Date: 2023-07-24 13:50:28
+ * @Descripttion: Do not edit
+ */
+
+// TutorialConfig.h.in是要配置的输入头文件。当在我们的CMakeLists.txt中调用configure_file()时，
+// @Tutorial_VERSION_MAJOR@和@Tutorial_VERSION_MINOR@这些占位符将会被替换为TutorialConfig.h中来自项目的相应版本号。
+
+#define Tutorial_VERSION_MAJOR @Tutorial_VERSION_MAJOR@
+#define Tutorial_VERSION_MINOR @Tutorial_VERSION_MINOR@
+
+#define test @PROJECT_BINARY_DIR@
