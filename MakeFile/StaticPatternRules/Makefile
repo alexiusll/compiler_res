@@ -1,7 +1,7 @@
 CC = gcc
 
 objects = foo.o bar.o all.o
-all.exe: $(objects)
+allin.exe: $(objects)
 
 # These files compile via implicit rules
 # foo.o: foo.c
@@ -19,6 +19,6 @@ all.c:
 
 %.c:
 	echo. > $@
-
+	
 clean:
 	rm -f *.c *.o all
