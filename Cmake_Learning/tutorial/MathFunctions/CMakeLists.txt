@@ -10,8 +10,7 @@ if (USE_MYMATH)
 # PRIVATE 表示这个编译定义只会应用于 MathFunctions 这个目标自身，不会传递给依赖于它的其他目标。
 # "USE_MYMATH": 这是要设置的编译定义，表示定义一个名为 USE_MYMATH 的预处理变量。
   target_compile_definitions(MathFunctions PRIVATE "USE_MYMATH")
+  add_library(SqrtLibrary STATIC mysqrt.cpp)
 endif()
-
-add_library(SqrtLibrary STATIC mysqrt.cpp)
 
 target_link_libraries(MathFunctions PUBLIC SqrtLibrary)
