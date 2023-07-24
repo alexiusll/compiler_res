@@ -12,12 +12,17 @@
 
 //* 在 build 文件夹下执行
 //* 构建项目: cmake ..
+//* 构建项目(不使用自建函数): cmake .. -DUSE_MYMATH=OFF
 //* 编译: cmake --build .
+
 
 //* ================
 
 //* 新增头文件
 #include "TutorialConfig.h"
+
+// 使用新的库
+#include "MathFunctions.h"
 
 #include <cmath>
 // #include <cstdlib> Remove this line
@@ -39,7 +44,9 @@ int main(int argc, char *argv[])
   const double inputValue = std::stod(argv[1]); //* C++ 11
 
   // calculate square root
-  const double outputValue = sqrt(inputValue);
+  // const double outputValue = sqrt(inputValue);
+  const double outputValue = mathfunctions::sqrt(inputValue); //* 改为使用自建库
+
   std::cout << "The square root of " << inputValue << " is " << outputValue
             << std::endl;
   return 0;
