@@ -53,7 +53,10 @@ install(TARGETS Tutorial DESTINATION ${PROJECT_BINARY_DIR}/install/bin)
 install(FILES "${PROJECT_BINARY_DIR}/TutorialConfig.h" DESTINATION ${PROJECT_BINARY_DIR}/install/include)
 
 # enable_testing()函数用于启用项目的测试功能。
-enable_testing()
+# enable_testing()
+
+# 替换为这个
+include(CTest)
 
 # add_test 是CMake的一个命令，用于添加一个测试。
 # NAME Runs：这里设置了测试的名称为"Runs"。

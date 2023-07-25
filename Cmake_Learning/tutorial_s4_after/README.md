@@ -34,6 +34,8 @@ ctest -N
 # -VV选项：表示输出更详细的测试执行信息。
 # --- 通过这个选项，ctest会输出更多关于测试运行情况的信息，包括测试的名称、执行时间、是否通过等等。
 ctest -C Debug -VV
-
+# CDash 将提交到这个网站
+# https://my.cdash.org/index.php?project=CMakeTutorial
+ctest -VV -C Debug -D Experimental
 ```
 

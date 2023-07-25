@@ -18,10 +18,10 @@ double sqrt(double x)
 {
 // which square root function should we use?
 #ifdef USE_MYMATH
-  printf("使用内建库: detail::mysqrt(x)");
+  printf("使用内建库: detail::mysqrt(x)\n");
   return detail::mysqrt(x);
 #else
-  printf("不使用内建库: std::sqrt(x)");
+  printf("不使用内建库: std::sqrt(x)\n");
   return std::sqrt(x);
 #endif
 }
