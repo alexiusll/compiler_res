@@ -1,44 +1,46 @@
-# TODO 1: Update the minimum required version to 3.15
 
-cmake_minimum_required(VERSION 3.10)
+# cmake_minimum_required()至少需要 CMake 版本3.15
+cmake_minimum_required(VERSION 3.15)
 
-# set the project name and version
 project(Tutorial VERSION 2.33)
 
-# specify the C++ standard
 add_library(tutorial_compiler_flags INTERFACE)
 target_compile_features(tutorial_compiler_flags INTERFACE cxx_std_17)
 
-# TODO 2: Create helper variables to determine which compiler we are using:
-# * Create a new variable gcc_like_cxx that is true if we are using CXX and
-#   any of the following compilers: ARMClang, AppleClang, Clang, GNU, LCC
-# * Create a new variable msvc_cxx that is true if we are using CXX and MSVC
-# Hint: Use set() and COMPILE_LANG_AND_ID
+# 条件生成表达式$<COMPILE_LANG_AND_ID:CXX,ARMClang,AppleClang,Clang,GNU,LCC>
+# 用于确定当前编译环境是否为CXX（C++编译器）且属于ARMClang、AppleClang、Clang、GNU或LCC之一。
+# 如果条件满足，则变量gcc_like_cxx被设置为true，否则设置为false。
+set(gcc_like_cxx "$<COMPILE_LANG_AND_ID:CXX,ARMClang,AppleClang,Clang,GNU,LCC>")
 
-# TODO 3: Add warning flag compile options to the interface library
-# tutorial_compiler_flags.
-# * For gcc_like_cxx, add flags -Wall;-Wextra;-Wshadow;-Wformat=2;-Wunused
-# * For msvc_cxx, add flags -W3
-# Hint: Use target_compile_options()
+# 条件生成表达式$<COMPILE_LANG_AND_ID:CXX,MSVC>
+# 用于确定当前编译环境是否为CXX（C++编译器）且为MSVC（Microsoft Visual C++编译器）。
+# 如果条件满足，则变量msvc_cxx被设置为true，否则设置为false。
+set(msvc_cxx "$<COMPILE_LANG_AND_ID:CXX,MSVC>")
 
-# TODO 4: With nested generator expressions, only use the flags for the
-# build-tree
-# Hint: Use BUILD_INTERFACE
+# target_compile_options() 用于设置目标的编译选项
+# 使用INTERFACE关键字，表示这些选项将传递给依赖 tutorial_compiler_flags 的其他目标
+# "-Wall;-Wextra;-Wshadow;-Wformat=2;-Wunused": 这是GCC-like编译器的一组编译选项。
+# --- "其中-Wall表示开启所有警告，-Wextra表示开启额外的警告，-Wshadow表示开启对变量隐藏的警告，
+# --- "-Wformat=2表示开启严格格式化字符串检查，-Wunused表示开启未使用变量的警告。
+# "-W3": 这是MSVC编译器的编译选项，表示开启所有警告（Warning Level 3）。
+# 条件表达式
+# --- 如果使用的是GCC-like编译器，那么开启一组警告选项；
+# --- 如果使用的是MSVC编译器，那么开启所有警告（Warning Level 3）。
+# BUILD_INTERFACE
+# --- $<BUILD_INTERFACE:...> 中的BUILD_INTERFACE表示在构建目标时（编译目标时）使用这些选项。
+target_compile_options(tutorial_compiler_flags INTERFACE
+  "$<${gcc_like_cxx}:$<BUILD_INTERFACE:-Wall;-Wextra;-Wshadow;-Wformat=2;-Wunused>>"
+  "$<${msvc_cxx}:$<BUILD_INTERFACE:-W4>>"   # 体现在 vs中的 警告等级 选项
+)
 
-# configure a header file to pass some of the CMake settings
-# to the source code
 configure_file(TutorialConfig.h.in TutorialConfig.h)
 
-# add the MathFunctions library
 add_subdirectory(MathFunctions)
 
-# add the executable
 add_executable(Tutorial tutorial.cpp)
 
 # （这里感觉 tutorial_compiler_flags 是可以删除的）
 # target_link_libraries(Tutorial PUBLIC MathFunctions tutorial_compiler_flags)
 target_link_libraries(Tutorial PUBLIC MathFunctions)
 
-# add the binary tree to the search path for include files
-# so that we will find TutorialConfig.h
 target_include_directories(Tutorial PUBLIC "${PROJECT_BINARY_DIR}")
