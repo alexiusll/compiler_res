@@ -21,12 +21,21 @@ if (USE_MYMATH)
   target_include_directories(SqrtLibrary PRIVATE
                             ${CMAKE_CURRENT_BINARY_DIR}
                             )
+  
+  # 这是set_target_properties()命令的使用，用于设置目标的属性。
+  # SqrtLibrary是目标的名称，这里指定要设置属性的目标为SqrtLibrary。
+  # PROPERTIES POSITION_INDEPENDENT_CODE ${BUILD_SHARED_LIBS}：这是要设置的属性列表。
+  # 其中POSITION_INDEPENDENT_CODE是属性名称，${BUILD_SHARED_LIBS}是属性的值。
+  # POSITION_INDEPENDENT_CODE是一个CMake目标属性，用于指示是否生成位置无关代码（Position Independent Code，PIC）。
+  set_target_properties(SqrtLibrary PROPERTIES POSITION_INDEPENDENT_CODE ${BUILD_SHARED_LIBS})
 
   target_link_libraries(SqrtLibrary PUBLIC tutorial_compiler_flags)
   target_link_libraries(MathFunctions PRIVATE SqrtLibrary)
 endif()
 
 target_link_libraries(MathFunctions PUBLIC tutorial_compiler_flags)
+
+target_compile_definitions(MathFunctions PRIVATE "EXPORTING_MYMATH")
 
 # 增加安装指令
 # 定义变量 installable_libs，并将其初始化为包含 MathFunctions 和 tutorial_compiler_flags 这两个目标的列表。

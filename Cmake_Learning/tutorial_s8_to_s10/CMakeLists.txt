@@ -33,6 +33,27 @@ target_compile_options(tutorial_compiler_flags INTERFACE
   "$<${msvc_cxx}:$<BUILD_INTERFACE:-W4>>"   # 体现在 vs中的 警告等级 选项
 )
 
+# 为静态库和共享库指定输出目录
+
+# 这行代码设置了静态库的构建输出目录。
+# CMAKE_ARCHIVE_OUTPUT_DIRECTORY是CMake的变量，表示静态库（.a文件）的输出目录。
+# ${PROJECT_BINARY_DIR}是CMake的变量，表示当前项目构建的二进制目录（即构建目录）。
+# 这行代码将静态库的构建输出目录设置为与构建目录相同，即将生成的静态库文件放置在构建目录下。
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${PROJECT_BINARY_DIR}")
+# 这行代码设置了共享库（动态链接库）的构建输出目录。
+# CMAKE_LIBRARY_OUTPUT_DIRECTORY是CMake的变量，表示共享库（.so、.dylib等）的输出目录。
+# ${PROJECT_BINARY_DIR}是CMake的变量，表示当前项目构建的二进制目录（即构建目录）。
+# 这行代码将共享库的构建输出目录设置为与构建目录相同，即将生成的共享库文件放置在构建目录下。
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${PROJECT_BINARY_DIR}")
+# 这行代码设置了可执行文件的构建输出目录。
+# CMAKE_RUNTIME_OUTPUT_DIRECTORY是CMake的变量，表示可执行文件的输出目录。
+# ${PROJECT_BINARY_DIR}是CMake的变量，表示当前项目构建的二进制目录（即构建目录）。
+# 这行代码将可执行文件的构建输出目录设置为与构建目录相同，即将生成的可执行文件放置在构建目录下。
+
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${PROJECT_BINARY_DIR}")
+
+option(BUILD_SHARED_LIBS "Build using shared libraries" ON)
+
 configure_file(TutorialConfig.h.in TutorialConfig.h)
 
 add_subdirectory(MathFunctions)
