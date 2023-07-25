@@ -39,7 +39,7 @@ endif()
 
 # install命令用于安装 installable_libs 列表中的目标到指定目录（这里是 mylib 目录）。
 # ${installable_libs}将会被展开成列表中的目标名称，并且这些目标会被安装到lib目录中。
-install(TARGETS ${installable_libs} DESTINATION ${PROJECT_BINARY_DIR}/install/mylib)
+install(TARGETS ${installable_libs} DESTINATION lib)
 
 # 通过这段代码，MathFunctions.h 头文件将会被安装到指定的 include 目录中。
-install(FILES MathFunctions.h DESTINATION ${PROJECT_BINARY_DIR}/install/include)
+install(FILES MathFunctions.h DESTINATION include)

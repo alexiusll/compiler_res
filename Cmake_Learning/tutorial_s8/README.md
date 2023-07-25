@@ -37,5 +37,14 @@ ctest -C Debug -VV
 # CDash 将提交到这个网站
 # https://my.cdash.org/index.php?project=CMakeTutorial
 ctest -VV -C Debug -D Experimental
+
+# cpack 指令
+# 用于生成项目的安装包。
+cpack
+# 要指定生成器，请使用该-G选项。对于多配置构建，请使用-C来指定配置。例如：
+cpack -G ZIP -C Debug
+# 要创建完整源代码树的存档，您可以输入：
+cpack --config CPackSourceConfig.cmake
+
 ```
 

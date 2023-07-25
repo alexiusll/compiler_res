@@ -47,10 +47,10 @@ target_include_directories(Tutorial PUBLIC "${PROJECT_BINARY_DIR}")
 
 # Tutorial 目标将会被安装到指定的 bin 目录中。
 # 这样，在项目安装后，用户可以在该目录中找到并运行生成的可执行文件或使用库文件。
-install(TARGETS Tutorial DESTINATION ${PROJECT_BINARY_DIR}/install/bin)
+install(TARGETS Tutorial DESTINATION bin)
 
 # TutorialConfig.h 头文件（通常是由 CMake 生成的配置头文件）将会被安装到指定的 include 目录中。
-install(FILES "${PROJECT_BINARY_DIR}/TutorialConfig.h" DESTINATION ${PROJECT_BINARY_DIR}/install/include)
+install(FILES "${PROJECT_BINARY_DIR}/TutorialConfig.h" DESTINATION include)
 
 # enable_testing()函数用于启用项目的测试功能。
 # enable_testing()
@@ -97,3 +97,19 @@ do_test(Tutorial 7 "7 is 2.645")
 do_test(Tutorial 25 "25 is 5")
 do_test(Tutorial -25 "-25 is (-nan|nan|0)")
 do_test(Tutorial 0.0001 "0.0001 is 0.01")
+
+# 接下来假设我们想要将我们的项目分发给其他人以便他们可以使用它。我们希望在各种平台上提供二进制和源代码发行版。
+# 首先引入 InstallRequiredSystemLibraries。该模块将包括当前平台项目所需的任何运行时库。
+include(InstallRequiredSystemLibraries)
+# 这行代码设置了项目的授权许可文件。
+# 它指定了授权许可文件的路径为${CMAKE_CURRENT_SOURCE_DIR}/License.txt，这个文件将包含在生成的安装包中，供用户查阅项目的授权许可信息。
+set(CPACK_RESOURCE_FILE_LICENSE "${CMAKE_CURRENT_SOURCE_DIR}/License.txt")
+# 这两行代码设置了项目的版本号。${Tutorial_VERSION_MAJOR}和${Tutorial_VERSION_MINOR}是之前定义的变量，
+# 用于指定项目的主版本号和次版本号。这些版本号将被用于生成安装包的文件名和版本标识。
+set(CPACK_PACKAGE_VERSION_MAJOR "${Tutorial_VERSION_MAJOR}")
+set(CPACK_PACKAGE_VERSION_MINOR "${Tutorial_VERSION_MINOR}")
+# 这行代码设置了项目的源码打包生成器。在这里，指定了使用TGZ格式（tar.gz）来打包源代码。
+set(CPACK_SOURCE_GENERATOR "TGZ")
+# 这行代码包含了CPack模块，启用CPack打包功能。
+# CPack是CMake的一个模块，用于根据配置的打包选项生成安装包。通过包含CPack模块，我们可以使用CPack的打包功能来生成项目的安装包。
+include(CPack)
