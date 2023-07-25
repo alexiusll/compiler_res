@@ -30,12 +30,6 @@ add_executable(Tutorial tutorial.cpp)
 # MathFunctions 是要链接的库的名称，这里 MathFunctions 是由 add_library() 命令创建的库。
 target_link_libraries(Tutorial PUBLIC MathFunctions)
 
-# 包含新的目录
-target_include_directories(Tutorial PUBLIC
-                          "${PROJECT_BINARY_DIR}"
-                          "${PROJECT_SOURCE_DIR}/MathFunctions"
-                          )
-
 #! 这个要放到最后
 # 指定一个目标（target）的包含目录
 # Tutorial 是目标的名称
@@ -43,4 +37,5 @@ target_include_directories(Tutorial PUBLIC
 # "${PROJECT_BINARY_DIR}" 是一个变量，它表示项目的二进制目录，也就是构建目录
 target_include_directories(Tutorial PUBLIC
                            "${PROJECT_BINARY_DIR}"
+                           "${PROJECT_SOURCE_DIR}/MathFunctions"
                            )
