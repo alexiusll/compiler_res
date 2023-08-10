@@ -1,0 +1,1 @@
+gcc main.c -I C:\env\OpenCL\include -L C:\env\OpenCL\lib -lOpenCL -o main.exe

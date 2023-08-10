@@ -9,8 +9,6 @@
 // OpenCL includes
 #include <CL/cl.h>
 
-// test rebase
-
 int main()
 {
     cl_int CL_err = CL_SUCCESS;

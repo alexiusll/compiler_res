@@ -1,0 +1,1 @@
+gcc test.c -I C:\env\OpenCL\include -L C:\env\OpenCL\lib -lOpenCL -o test.exe
