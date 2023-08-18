@@ -103,7 +103,7 @@ class Lexer(object):
 
         return Token(EOF, None)
 
-
+# * Interpreter 类通常包含了解析器（parser）和执行器（evaluator）的功能。
 class Interpreter(object):
     def __init__(self, lexer):
         self.lexer = lexer

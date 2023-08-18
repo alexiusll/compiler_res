@@ -1,0 +1,1 @@
+python genastdot.py "7 + 3 * (10 / (12 / (3 + 1) - 1))" > ast.dot && dot -Tpng -o ast.png ast.dot

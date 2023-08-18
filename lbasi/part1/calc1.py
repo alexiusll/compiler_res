@@ -1,3 +1,13 @@
+'''
+Author: linkenzone
+Date: 2023-08-16 11:43:41
+Descripttion: 
+'''
+
+'''
+
+'''
+
 # Token types
 #
 # EOF (end-of-file) token is used to indicate that
@@ -6,14 +16,15 @@ INTEGER, PLUS, EOF = 'INTEGER', 'PLUS', 'EOF'
 
 
 class Token(object):
-    def __init__(self, type, value):
+    def __init__(self, type, value): # 构造方法
         # token type: INTEGER, PLUS, or EOF
         self.type = type
         # token value: 0, 1, 2. 3, 4, 5, 6, 7, 8, 9, '+', or None
         self.value = value
 
-    def __str__(self):
-        """String representation of the class instance.
+    def __str__(self): # 用于返回对象的字符串表示形式
+        """
+        String representation of the class instance.
 
         Examples:
             Token(INTEGER, 3)
@@ -24,7 +35,7 @@ class Token(object):
             value=repr(self.value)
         )
 
-    def __repr__(self):
+    def __repr__(self): # 用于返回对象的“官方”字符串表示形式
         return self.__str__()
 
 
@@ -41,14 +52,13 @@ class Interpreter(object):
         raise Exception('Error parsing input')
 
     def get_next_token(self):
-        """Lexical analyzer (also known as scanner or tokenizer)
-
-        This method is responsible for breaking a sentence
-        apart into tokens. One token at a time.
+        """
+        Lexical analyzer (also known as scanner or tokenizer)
+        This method is responsible for breaking a sentence apart into tokens. One token at a time.
         """
         text = self.text
 
-        # is self.pos index past the end of the self.text ?
+        # is self.pos index past the end of the self.text ? 
         # if so, then return EOF token because there is no more
         # input left to convert into tokens
         if self.pos > len(text) - 1:
@@ -90,8 +100,12 @@ class Interpreter(object):
         self.current_token = self.get_next_token()
 
         # we expect the current token to be a single-digit integer
-        left = self.current_token
-        self.eat(INTEGER)
+        left = 0
+
+        # *改了第一道题的，后面2题应该差不多，不改了...s
+        while self.current_token.type == INTEGER:
+            left = self.current_token.value + left * 10
+            self.eat(INTEGER)
 
         # we expect the current token to be a '+' token
         op = self.current_token
@@ -107,7 +121,7 @@ class Interpreter(object):
         # has been successfully found and the method can just
         # return the result of adding two integers, thus
         # effectively interpreting client input
-        result = left.value + right.value
+        result = left + right.value
         return result
 
 

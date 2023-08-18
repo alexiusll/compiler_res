@@ -31,7 +31,8 @@ class Token(object):
         return self.__str__()
 
 
-class Lexer(object):
+#* 词法分析器（lexical analyzer）或分词器。它负责将输入的源代码分解成一个个的词法单元（tokens）
+class Lexer(object): 
     def __init__(self, text):
         # client string input, e.g. "3 * 5", "12 / 3 * 4", etc
         self.text = text
@@ -97,7 +98,7 @@ class Lexer(object):
 
         return Token(EOF, None)
 
-
+# * Interpreter 类通常包含了解析器（parser）和执行器（evaluator）的功能。
 class Interpreter(object):
     def __init__(self, lexer):
         self.lexer = lexer

@@ -65,10 +65,9 @@ class Interpreter(object):
         return int(result)
 
     def get_next_token(self):
-        """Lexical analyzer (also known as scanner or tokenizer)
-
-        This method is responsible for breaking a sentence
-        apart into tokens. One token at a time.
+        """
+        词法分析器（也称为扫描器或标记器）
+        此方法负责将句子分解为标记。逐个标记地进行。
         """
         while self.current_char is not None:
 
@@ -94,7 +93,7 @@ class Interpreter(object):
     ##########################################################
     # Parser / Interpreter code                              #
     ##########################################################
-    def eat(self, token_type):
+    def eat(self, token_type): #* match() 方法
         # compare the current token type with the passed token
         # type and if they match then "eat" the current token
         # and assign the next token to the self.current_token,
@@ -110,7 +109,7 @@ class Interpreter(object):
         self.eat(INTEGER)
         return token.value
 
-    def expr(self):
+    def expr(self): #* 解析器和解释器
         """Arithmetic expression parser / interpreter."""
         # set current token to the first token taken from the input
         self.current_token = self.get_next_token()
