@@ -1,0 +1,1 @@
+spirv-dis vector_add_kernel.spv -o vector_add_kernel.spvasm

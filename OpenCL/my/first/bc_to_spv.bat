@@ -1,0 +1,1 @@
+llvm-spirv vector_add_kernel.bc

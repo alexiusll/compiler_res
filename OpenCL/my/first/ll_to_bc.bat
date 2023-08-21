@@ -1,0 +1,1 @@
+llvm-as vector_add_kernel.ll -o vector_add_kernel.bc
