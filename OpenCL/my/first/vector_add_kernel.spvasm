@@ -1,66 +1,56 @@
 ; SPIR-V
-; Version: 1.4
+; Version: 1.0
 ; Generator: Khronos LLVM/SPIR-V Translator; 14
-; Bound: 28
+; Bound: 30
 ; Schema: 0
                OpCapability Addresses
                OpCapability Linkage
                OpCapability Kernel
           %1 = OpExtInstImport "OpenCL.std"
                OpMemoryModel Physical32 OpenCL
-               OpEntryPoint Kernel %22 "vector_add" %__spirv_BuiltInGlobalInvocationId
+               OpEntryPoint Kernel %26 "vector_add" %__spirv_BuiltInGlobalInvocationId
                OpSource OpenCL_C 102000
                OpName %__spirv_BuiltInGlobalInvocationId "__spirv_BuiltInGlobalInvocationId"
                OpName %vector_add "vector_add"
+               OpName %cast "cast"
                OpDecorate %__spirv_BuiltInGlobalInvocationId LinkageAttributes "__spirv_BuiltInGlobalInvocationId" Import
                OpDecorate %__spirv_BuiltInGlobalInvocationId Constant
                OpDecorate %__spirv_BuiltInGlobalInvocationId BuiltIn GlobalInvocationId
                OpDecorate %vector_add LinkageAttributes "vector_add" Export
                OpDecorate %10 FuncParamAttr NoCapture
-               OpDecorate %10 FuncParamAttr NoWrite
                OpDecorate %10 Alignment 4
-               OpDecorate %11 FuncParamAttr NoCapture
-               OpDecorate %11 FuncParamAttr NoWrite
-               OpDecorate %11 Alignment 4
-               OpDecorate %12 FuncParamAttr NoCapture
-               OpDecorate %12 Alignment 4
-               OpDecorate %20 NoSignedWrap
-               OpDecorate %23 FuncParamAttr NoCapture
-               OpDecorate %23 FuncParamAttr NoWrite
-               OpDecorate %23 Alignment 4
-               OpDecorate %24 FuncParamAttr NoCapture
-               OpDecorate %24 FuncParamAttr NoWrite
-               OpDecorate %24 Alignment 4
-               OpDecorate %25 FuncParamAttr NoCapture
-               OpDecorate %25 Alignment 4
+               OpDecorate %27 FuncParamAttr NoCapture
+               OpDecorate %27 Alignment 4
        %uint = OpTypeInt 32 0
+     %uint_0 = OpConstant %uint 0
+%uint_4294967295 = OpConstant %uint 4294967295
+     %uint_1 = OpConstant %uint 1
      %v3uint = OpTypeVector %uint 3
 %_ptr_Input_v3uint = OpTypePointer Input %v3uint
        %void = OpTypeVoid
 %_ptr_CrossWorkgroup_uint = OpTypePointer CrossWorkgroup %uint
-          %8 = OpTypeFunction %void %_ptr_CrossWorkgroup_uint %_ptr_CrossWorkgroup_uint %_ptr_CrossWorkgroup_uint
+          %8 = OpTypeFunction %void %_ptr_CrossWorkgroup_uint
+     %v4uint = OpTypeVector %uint 4
+       %bool = OpTypeBool
+     %v4bool = OpTypeVector %bool 4
 %__spirv_BuiltInGlobalInvocationId = OpVariable %_ptr_Input_v3uint Input
+         %17 = OpConstantComposite %v4uint %uint_0 %uint_0 %uint_4294967295 %uint_4294967295
+         %18 = OpConstantNull %v4uint
  %vector_add = OpFunction %void None %8
          %10 = OpFunctionParameter %_ptr_CrossWorkgroup_uint
-         %11 = OpFunctionParameter %_ptr_CrossWorkgroup_uint
-         %12 = OpFunctionParameter %_ptr_CrossWorkgroup_uint
-         %13 = OpLabel
-         %14 = OpLoad %v3uint %__spirv_BuiltInGlobalInvocationId Aligned 16
-         %15 = OpCompositeExtract %uint %14 0
-         %16 = OpInBoundsPtrAccessChain %_ptr_CrossWorkgroup_uint %10 %15
-         %17 = OpLoad %uint %16 Aligned 4
-         %18 = OpInBoundsPtrAccessChain %_ptr_CrossWorkgroup_uint %11 %15
-         %19 = OpLoad %uint %18 Aligned 4
-         %20 = OpIAdd %uint %19 %17
-         %21 = OpInBoundsPtrAccessChain %_ptr_CrossWorkgroup_uint %12 %15
-               OpStore %21 %20 Aligned 4
+         %11 = OpLabel
+         %12 = OpLoad %v3uint %__spirv_BuiltInGlobalInvocationId Aligned 16
+         %13 = OpCompositeExtract %uint %12 0
+       %cast = OpSLessThan %v4bool %17 %18
+         %22 = OpAny %bool %cast
+         %24 = OpSelect %uint %22 %uint_1 %uint_0
+         %25 = OpInBoundsPtrAccessChain %_ptr_CrossWorkgroup_uint %10 %13
+               OpStore %25 %24 Aligned 4
                OpReturn
                OpFunctionEnd
-         %22 = OpFunction %void None %8
-         %23 = OpFunctionParameter %_ptr_CrossWorkgroup_uint
-         %24 = OpFunctionParameter %_ptr_CrossWorkgroup_uint
-         %25 = OpFunctionParameter %_ptr_CrossWorkgroup_uint
-         %26 = OpLabel
-         %27 = OpFunctionCall %void %vector_add %23 %24 %25
+         %26 = OpFunction %void None %8
+         %27 = OpFunctionParameter %_ptr_CrossWorkgroup_uint
+         %28 = OpLabel
+         %29 = OpFunctionCall %void %vector_add %27
                OpReturn
                OpFunctionEnd

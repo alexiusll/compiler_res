@@ -9,5 +9,7 @@ chcp 65001
 ::  -S：这是一个输出选项，表示输出LLVM IR的文本表示（汇编）。如果省略此选项，将生成二进制格式的LLVM IR。
 ::  -cl-std=CL2.0：这是一个OpenCL选项，指定使用的OpenCL标准版本。在这里，它指定使用OpenCL 2.0标准。
 
-clang -c -o0 -x cl -target spir -emit-llvm -cl-std=CL1.2 -fdiscard-value-names -Xclang ^
--finclude-default-header vector_add_kernel.cl -o vector_add_kernel.bc
+:: clang -c -o0 -x cl -target spir -emit-llvm -cl-std=CL1.2 -fdiscard-value-names -Xclang ^
+:: -finclude-default-header vector_add_kernel.cl -o vector_add_kernel.bc
+
+clang -c -x cl -target spir -emit-llvm -cl-std=CL1.2 vector_add_kernel.cl -o vector_add_kernel.bc
