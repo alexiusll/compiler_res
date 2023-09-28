@@ -6,8 +6,11 @@
 // C standard includes
 #include <stdio.h>
 
+#define CL_TARGET_OPENCL_VERSION 300
+
 // OpenCL includes
 #include <CL/cl.h>
+
 
 int main()
 {
