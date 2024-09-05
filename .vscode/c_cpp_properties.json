@@ -1,27 +1,18 @@
 {
     "configurations": [
         {
-            "name": "Win32",
+            "name": "GCC",
             "includePath": [
-                "${workspaceFolder}/**",
-                "C:/env/OpenCL/include"
+                "${workspaceFolder}/**"
             ],
             "defines": [
                 "_DEBUG",
                 "UNICODE",
                 "_UNICODE"
             ],
-            "browse": {
-                "path": [
-                    "${workspaceFolder}/**",
-                    "C:/env/OpenCL/lib"
-                ]
-            },
-            "windowsSdkVersion": "10.0.22000.0",
-            "compilerPath": "cl.exe",
             "cStandard": "c17",
-            "cppStandard": "c++17",
-            "intelliSenseMode": "windows-msvc-x64"
+            "intelliSenseMode": "windows-gcc-x64",
+            "cppStandard": "c++17"
         }
     ],
     "version": 4
